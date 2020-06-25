@@ -91,8 +91,28 @@ function quickSort(nums, lower, upper) {
   quickSort(nums, p + 1, upper);
 }
 
-// Quicksort with Insertion sort.
+// Quicksort with Insertion Sort 1.
+// Insertion sort is preformed on the subarray left of the partition and then the subarray right of the partition after quicksort to the base case.
+function quickSortCombo(nums, lower, upper) {
+  if (lower === undefined) {
+    lower = 0;
+  }
+  if (upper === undefined) {
+    upper = nums.length - 1;
+  }
 
+  // Base case: Base on the analysis, insertion sort has a faster runtime than quicksort for n < 2**10 elements.
+  if (upper - lower <= 1000) {
+    return insertionSort(nums, (lower = lower), (upper = upper));
+  }
+  let p = randomizedPartition(nums, lower, upper);
+
+  quickSortCombo(nums, lower, p - 1);
+  quickSortCombo(nums, p + 1, upper);
+}
+
+// Quicksort with Insertion sort 2.
+// Insertion sort is prefromed on the entire quicksorted array up to the base case.
 function quickSortCombo2(nums, lower, upper) {
   _quickSortCombo(nums, lower, upper);
   insertionSort(nums);
@@ -106,27 +126,9 @@ function _quickSortCombo(nums, lower, upper) {
     upper = nums.length - 1;
   }
 
-  // Base case: An empty array or an array with only 1 item is sorted.
-  if (upper - lower <= 100) {
+  // Base case
+  if (upper - lower <= 1000) {
     return;
-  }
-  let p = randomizedPartition(nums, lower, upper);
-
-  quickSortCombo(nums, lower, p - 1);
-  quickSortCombo(nums, p + 1, upper);
-}
-
-function quickSortCombo(nums, lower, upper) {
-  if (lower === undefined) {
-    lower = 0;
-  }
-  if (upper === undefined) {
-    upper = nums.length - 1;
-  }
-
-  // Base case: An empty array or an array with only 1 item is sorted.
-  if (upper - lower <= 100) {
-    return insertionSort(nums, (lower = lower), (upper = upper));
   }
   let p = randomizedPartition(nums, lower, upper);
 
