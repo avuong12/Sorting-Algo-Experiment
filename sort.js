@@ -217,7 +217,7 @@ function measureTimes(size, maxSize, trials, funcs) {
 }
 
 console.log(
-  measureTimes(8, 4e4, 100, [
+  measureTimes(8, 4e6, 1000, [
     insertionSort,
     quickSort,
     quickSortCombo,
