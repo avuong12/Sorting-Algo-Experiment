@@ -1,4 +1,5 @@
 const { performance } = require('perf_hooks');
+const { std, mean } = require('mathjs');
 
 // swap function
 function swap(arr, a, b) {
@@ -160,22 +161,24 @@ function randomizedPartition(nums, lower, upper) {
 // For non unquie elements
 const nums = Array.from({ length: 10 }, () => Math.floor(Math.random() * 40));
 
-function getRunTime(nums, func, trials) {
-  let sum = 0;
+function getRunTime(arrSize, func, trials) {
+  let times = [];
   let count = 0;
   while (count < trials) {
     const t0 = performance.now();
-    func(nums);
+    func(shuffleArray(arrSize));
     const t1 = performance.now();
-    sum = sum + (t1 - t0);
+    times.push(t1 - t0);
     count++;
   }
-  return Number((sum / trials).toFixed(4));
+  const average = Number(mean(times).toFixed(5));
+  const stdev = Number(std(times).toFixed(3));
+  return [average, stdev];
 }
 
-function shuffleArray(start, len) {
+function shuffleArray(arrSize) {
   const arr = [];
-  for (let i = start; i <= len; i++) {
+  for (let i = 1; i <= arrSize; i++) {
     arr.push(i);
   }
 
@@ -204,17 +207,17 @@ function measureTimes(size, maxSize, trials, funcs) {
   const times = {};
   for (let i = size; i <= maxSize; i = i * 2) {
     let runTimes = [];
-    const nums = shuffleArray(1, i);
     funcs.forEach((func) => {
-      runTimes.push(getRunTime(nums, func, trials));
+      runTimes.push(getRunTime(i, func, trials));
     });
     times[i] = new RunTimes(...runTimes);
   }
+  console.log('stop');
   console.table(times);
 }
 
 console.log(
-  measureTimes(8, 4e5, 100, [
+  measureTimes(8, 4e4, 100, [
     insertionSort,
     quickSort,
     quickSortCombo,
