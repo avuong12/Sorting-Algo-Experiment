@@ -204,8 +204,9 @@ function measureTimes(size, maxSize, trials, funcs) {
   const times = {};
   for (let i = size; i <= maxSize; i = i * 2) {
     let runTimes = [];
+    const nums = shuffleArray(1, i);
     funcs.forEach((func) => {
-      runTimes.push(getRunTime(shuffleArray(1, i), func, trials));
+      runTimes.push(getRunTime(nums, func, trials));
     });
     times[i] = new RunTimes(...runTimes);
   }
@@ -213,7 +214,7 @@ function measureTimes(size, maxSize, trials, funcs) {
 }
 
 console.log(
-  measureTimes(8, 4e5, 10, [
+  measureTimes(8, 4e5, 100, [
     insertionSort,
     quickSort,
     quickSortCombo,
