@@ -19,7 +19,7 @@ node sort.js
 
 ## What You Will See
 
-The experiment examines the runtime of Merge Sort, Insertion Sort, Quicksort, and two slightly different Quicksort with Insertion Sort (QuicksortCombo and QuicksortCombo2) algorithms for sorting n elements where 2<sup>3</sup> `≤` n `≤` 2<sup>18</sup>.
+The experiment examines the runtime of Merge Sort, Insertion Sort, Quicksort, and two slightly different Quicksort with Insertion Sort (QuicksortCombo and QuicksortCombo2) algorithms for sorting n elements where 2<sup>3</sup> ≤ n ≤ 2<sup>18</sup>.
 The runtime of each algorithm in computing n elements is presented as the average runtime of 10 trials in milliseconds.
 
 The Bubble Sort algorithm is included but not analyzed because of its inefficiency to sort larger n elements.
