@@ -1,4 +1,4 @@
-export const data = {
+const runtimeData = {
   '2': {
     insertionSort: [0.00766, 0.02],
     quickSort: [0.00794, 0.021],
@@ -140,3 +140,25 @@ export const data = {
     mergeSort: [861.81089, 16.63],
   },
 };
+
+function xValues(data) {
+  let output = [];
+  for (let keys in data) {
+    output.push(Number(keys));
+  }
+  output.sort((a, b) => a - b);
+  output.unshift('x');
+  return output;
+}
+
+function dataValues(data, algoName) {
+  let output = [];
+  let size = Object.keys(data)
+    .map((x) => Number(x))
+    .sort((a, b) => a - b);
+  for (let i = 0; i < size.length; i++) {
+    output.push(data[size[i]][algoName][0]);
+  }
+  output.unshift(algoName);
+  return output;
+}
