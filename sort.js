@@ -103,7 +103,7 @@ function quickSortCombo(nums, lower, upper) {
   }
 
   // Base case: Base on the analysis, insertion sort has a faster runtime than quicksort for n < 2**10 elements.
-  if (upper - lower <= 1000) {
+  if (upper - lower <= 8) {
     return insertionSort(nums, (lower = lower), (upper = upper));
   }
   let p = randomizedPartition(nums, lower, upper);
@@ -128,7 +128,7 @@ function _quickSortCombo(nums, lower, upper) {
   }
 
   // Base case
-  if (upper - lower <= 1000) {
+  if (upper - lower <= 8) {
     return;
   }
   let p = randomizedPartition(nums, lower, upper);
@@ -209,15 +209,17 @@ function measureTimes(size, maxSize, trials, funcs) {
     let runTimes = [];
     funcs.forEach((func) => {
       runTimes.push(getRunTime(i, func, trials));
+      console.log(`    ${func.name}, ${runTimes[runTimes.length - 1]}`);
     });
     times[i] = new RunTimes(...runTimes);
+    console.log(i);
   }
-  console.log('stop');
   console.table(times);
+  return times;
 }
 
 console.log(
-  measureTimes(8, 4e6, 1000, [
+  measureTimes(2, 2 ** 20, 20, [
     insertionSort,
     quickSort,
     quickSortCombo,
@@ -225,3 +227,16 @@ console.log(
     mergeSort,
   ])
 );
+
+/*
+const t0 = performance.now();
+measureTimes(8, 2 ** 18, 20, [
+  insertionSort,
+  quickSort,
+  quickSortCombo,
+  quickSortCombo2,
+  mergeSort,
+]);
+const t1 = performance.now();
+console.log(t1 - t0);
+**/
