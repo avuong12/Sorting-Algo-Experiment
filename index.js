@@ -24,7 +24,7 @@ var chart = c3.generate({
     },
     y: {
       label: {
-        text: 'log2(runtime, ms)',
+        text: 'log2(runtime, milliseconds)',
         position: 'outer-middle',
       },
     },
