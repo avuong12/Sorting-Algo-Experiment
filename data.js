@@ -1,4 +1,4 @@
-const data = {
+export const data = {
   '2': {
     insertionSort: [0.00766, 0.02],
     quickSort: [0.00794, 0.021],
