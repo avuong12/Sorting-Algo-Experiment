@@ -15,4 +15,18 @@ var chart = c3.generate({
   size: {
     height: 500,
   },
+  axis: {
+    x: {
+      label: {
+        text: 'log2(array size)',
+        position: 'outer-center',
+      },
+    },
+    y: {
+      label: {
+        text: 'log2(runtime, ms)',
+        position: 'outer-middle',
+      },
+    },
+  },
 });
