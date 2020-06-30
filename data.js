@@ -141,6 +141,27 @@ const runtimeData = {
   },
 };
 
+function tableData(data) {
+  let tableData = [];
+  let size = Object.keys(data)
+    .map((x) => Number(x))
+    .sort((a, b) => a - b);
+  for (let i = 0; i < size.length; i++) {
+    tableData.push(tableRow(data, size[i]));
+  }
+  return tableData;
+}
+
+function tableRow(data, key) {
+  let row = {};
+  row['Array Size (n)'] = key;
+  const obj = data[key];
+  for (let keys in obj) {
+    row[keys] = `${data[key][keys][0]} +/- ${data[key][keys][1]}`;
+  }
+  return row;
+}
+
 function xValues(data) {
   let output = [];
   for (let keys in data) {
