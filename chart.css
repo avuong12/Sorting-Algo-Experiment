@@ -14,7 +14,13 @@ h1 {
   font-family: sans-serif;
 }
 
-td,
-th {
-  padding: 1px 4px;
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
 }
