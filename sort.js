@@ -94,7 +94,7 @@ function quickSort(nums, lower, upper) {
 
 // Quicksort with Insertion Sort 1.
 // Insertion sort is preformed on the subarray left of the partition and then the subarray right of the partition after quicksort to the base case.
-function quickSortCombo(nums, lower, upper) {
+function quickSortInsertion(nums, lower, upper) {
   if (lower === undefined) {
     lower = 0;
   }
@@ -108,18 +108,18 @@ function quickSortCombo(nums, lower, upper) {
   }
   let p = randomizedPartition(nums, lower, upper);
 
-  quickSortCombo(nums, lower, p - 1);
-  quickSortCombo(nums, p + 1, upper);
+  quickSortInsertion(nums, lower, p - 1);
+  quickSortInsertion(nums, p + 1, upper);
 }
 
 // Quicksort with Insertion sort 2.
 // Insertion sort is prefromed on the entire quicksorted array up to the base case.
-function quickSortCombo2(nums, lower, upper) {
-  _quickSortCombo(nums, lower, upper);
+function quickSortInsertion2(nums, lower, upper) {
+  _quickSortInsertion(nums, lower, upper);
   insertionSort(nums);
 }
 
-function _quickSortCombo(nums, lower, upper) {
+function _quickSortInsertion(nums, lower, upper) {
   if (lower === undefined) {
     lower = 0;
   }
@@ -133,8 +133,8 @@ function _quickSortCombo(nums, lower, upper) {
   }
   let p = randomizedPartition(nums, lower, upper);
 
-  quickSortCombo(nums, lower, p - 1);
-  quickSortCombo(nums, p + 1, upper);
+  quickSortInsertion(nums, lower, p - 1);
+  quickSortInsertion(nums, p + 1, upper);
 }
 
 function partition(nums, lower, upper) {
@@ -192,14 +192,14 @@ function shuffleArray(arrSize) {
 function RunTimes(
   insertionSort,
   quickSort,
-  quickSortCombo,
-  quickSortCombo2,
+  quickSortInsertion,
+  quickSortInsertion2,
   mergeSort
 ) {
   this.insertionSort = insertionSort;
   this.quickSort = quickSort;
-  this.quickSortCombo = quickSortCombo;
-  this.quickSortCombo2 = quickSortCombo2;
+  this.quickSortInsertion = quickSortInsertion;
+  this.quickSortInsertion2 = quickSortInsertion2;
   this.mergeSort = mergeSort;
 }
 
@@ -222,21 +222,8 @@ console.log(
   measureTimes(2, 2 ** 20, 20, [
     insertionSort,
     quickSort,
-    quickSortCombo,
-    quickSortCombo2,
+    quickSortInsertion,
+    quickSortInsertion2,
     mergeSort,
   ])
 );
-
-/*
-const t0 = performance.now();
-measureTimes(8, 2 ** 18, 20, [
-  insertionSort,
-  quickSort,
-  quickSortCombo,
-  quickSortCombo2,
-  mergeSort,
-]);
-const t1 = performance.now();
-console.log(t1 - t0);
-**/
