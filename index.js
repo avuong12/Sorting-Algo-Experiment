@@ -28,11 +28,21 @@ const chart = c3.generate({
         position: 'outer-middle',
       },
     },
+    tooltip: {
+      format: {
+        name: function (d, index) {
+          return 'test' + index;
+        },
+      },
+    },
   },
 });
 
+document.addEventListener('mouseout', (event) => {
+  console.log(event.target.class === 'c3-event-rect');
+});
+
 const data = tableData(runtimeData);
-console.log(data);
 
 function tabulate(data, columns) {
   const table = d3.select('body').append('table');

@@ -141,12 +141,6 @@ const runtimeData = {
   },
 };
 
-function numberWithCommas(x) {
-  var parts = x.toString().split('.');
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  return parts.join('.');
-}
-
 function tableData(data) {
   let tableData = [];
   let size = Object.keys(data)
@@ -163,9 +157,9 @@ function tableRow(data, key) {
   row['Array Size (n)'] = key;
   const obj = data[key];
   for (let keys in obj) {
-    row[keys] = `${numberWithCommas(data[key][keys][0])} +/- ${
-      data[key][keys][1]
-    }`;
+    row[keys] = `${Number(
+      data[key][keys][0].toFixed(4)
+    ).toLocaleString()} +/- ${data[key][keys][1]}`;
   }
   return row;
 }
