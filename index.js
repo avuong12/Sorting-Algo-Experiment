@@ -6,9 +6,9 @@ const chart = c3.generate({
     columns: [
       xValues(runtimeData).map(log),
       dataValues(runtimeData, 'insertionSort').map(log),
-      dataValues(runtimeData, 'quickSort').map(log),
-      dataValues(runtimeData, 'quickSortInsertion').map(log),
-      dataValues(runtimeData, 'quickSortInsertion2').map(log),
+      dataValues(runtimeData, 'quicksort').map(log),
+      dataValues(runtimeData, 'quicksortInsertion').map(log),
+      dataValues(runtimeData, 'quicksortInsertion2').map(log),
       dataValues(runtimeData, 'mergeSort').map(log),
     ],
   },
@@ -57,7 +57,7 @@ function tabulate(data, columns) {
     .enter()
     .append('th')
     .text(function (column) {
-      return column;
+      return spaceCaseFormat(column);
     });
 
   // create a row for each object in the data
@@ -80,13 +80,24 @@ function tabulate(data, columns) {
   return table;
 }
 
-function getColumns(data) {
-  let columnTiltes = [];
-  for (let keys in data[0]) {
-    columnTiltes.push(keys);
+function getColumnTitles(data) {
+  let columnTitles = [];
+  for (let key in data[0]) {
+    columnTitles.push(key);
   }
-  return columnTiltes;
+  return columnTitles;
 }
 
 // render the tables
-tabulate(data, getColumns(data));
+tabulate(data, getColumnTitles(data));
+
+function spaceCaseFormat(title) {
+  let formatedTitle = title[0].toUpperCase();
+  for (let i = 1; i < title.length; i++) {
+    if (title[i] === title[i].toUpperCase()) {
+      formatedTitle += ' ';
+    }
+    formatedTitle += title[i];
+  }
+  return formatedTitle;
+}

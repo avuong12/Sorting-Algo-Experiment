@@ -19,9 +19,26 @@
       Sort, and <a href="https://en.wikipedia.org/wiki/Merge_sort">Merge Sort</a>.
     </p>
     <P>
-      <h3>Hypothesis:</h3> Quicksort is more efficient than insertion sort for sorting large arrays. The asymptotic time complexity, or big-O, of insertion sort is n<sup>2</sup> while the big-O of quicksort is nlog(n). However, when implementing each sorting algorithm, quicksort has a greater overhead than insertion sort and is less efficient than insertion sort for sorting smaller arrays. 
+      <h3>Hypothesis:</h3> Quicksort is more efficient than insertion sort for sorting large arrays. The asymptotic time complexity, big-O, of insertion sort is n<sup>2</sup> while the big-O of quicksort is nlog(n). However, when implementing each sorting algorithm, quicksort has greater overhead than insertion sort and is less efficient than insertion sort for sorting smaller arrays. 
     </P>
+    <p>
+      <h3>Experimental Procedure:</h3> The runtime of Merge Sort, Insertion Sort, Quicksort, and Quicksort with Insertion Sort (QuicksortInsertion and QuicksortInsertion2) algorithms where measured for sorting n elements, where 2<sup>3</sup> ≤ n ≤ 2<sup>20</sup>. There were 20 runtime measurements of each array size. Precision analysis was done for each array size by calculating the average and standard deviation of the runtimes in milliseconds. 
+    </p>
+    <p>
+      <h3>Results:</h3>
+    </p>
+    <p>
+      <h4>Runtimes of Different Algothrims Sorting n Elements</h4>
+    </p>
     <div id="chart"></div>
+    <p class="caption">
+      <b>Graph 1.</b> The average runtimes of the sorting algorithms for increasing array size in a log/ log plot. The slope for insertion sort is 2, which is consistant with a big-O of n<sup>2</sup>. The slope for merge sort is 1, which is consistant with a big-O of nlog(n). The slope for quicksort is also 1 with the constant less than the constant for merge sort.
+    </p>
+    <p>
+      <p class="tableHeading">
+        <b>Table 1.</b> The average runtimes and standard deviation in milliseconds for sorting an array size of n.
+      </p>
+    </p>
     <script src="./index.js"></script>
   </body>
 </html>
