@@ -172,7 +172,7 @@ function getRunTime(arrSize, func, trials) {
     count++;
   }
   const average = Number(mean(times).toFixed(5));
-  const stdev = Number(std(times).toFixed(3));
+  const stdev = Number(std(times, 'uncorrected').toFixed(3));
   return [average, stdev];
 }
 
