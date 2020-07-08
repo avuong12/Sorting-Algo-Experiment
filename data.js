@@ -159,7 +159,9 @@ function tableRow(data, key) {
   for (let keys in obj) {
     row[keys] = `${Number(
       data[key][keys][0].toFixed(4)
-    ).toLocaleString()} +/- ${data[key][keys][1]}`;
+    ).toLocaleString(undefined, { maximumFractionDigits: 4 })} +/- ${
+      data[key][keys][1]
+    }`;
   }
   return row;
 }
