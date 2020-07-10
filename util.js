@@ -44,3 +44,14 @@ function dataValues(data, algoName) {
   output.unshift(algoName);
   return output;
 }
+
+function spaceCaseFormat(title) {
+  let formatedTitle = title[0].toUpperCase();
+  for (let i = 1; i < title.length; i++) {
+    if (title[i] === title[i].toUpperCase()) {
+      formatedTitle += ' ';
+    }
+    formatedTitle += title[i];
+  }
+  return formatedTitle;
+}

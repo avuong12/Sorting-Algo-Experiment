@@ -91,14 +91,3 @@ function getColumnTitles(data) {
 
 // render the tables
 tabulate(data, getColumnTitles(data));
-
-function spaceCaseFormat(title) {
-  let formatedTitle = title[0].toUpperCase();
-  for (let i = 1; i < title.length; i++) {
-    if (title[i] === title[i].toUpperCase()) {
-      formatedTitle += ' ';
-    }
-    formatedTitle += title[i];
-  }
-  return formatedTitle;
-}
