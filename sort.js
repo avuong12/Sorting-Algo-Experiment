@@ -97,7 +97,7 @@ function quickSort(nums, lower, upper) {
 
 // Quicksort with Insertion Sort 1.
 // Insertion sort is preformed on the subarray left of the partition and then the subarray right of the partition after quicksort to the base case.
-function quickSortInsertion(nums, limit = 8, lower, upper) {
+function quickSortInsertion(nums, k = 8, lower, upper) {
   if (lower === undefined) {
     lower = 0;
   }
@@ -106,13 +106,13 @@ function quickSortInsertion(nums, limit = 8, lower, upper) {
   }
 
   // Base case: Base on the analysis, insertion sort has a faster runtime than quicksort for n < 2**3 elements.
-  if (upper - lower <= limit) {
+  if (upper - lower <= k) {
     return insertionSort(nums, (lower = lower), (upper = upper));
   }
   let p = randomizedPartition(nums, lower, upper);
 
-  quickSortInsertion(nums, limit, lower, p - 1);
-  quickSortInsertion(nums, limit, p + 1, upper);
+  quickSortInsertion(nums, k, lower, p - 1);
+  quickSortInsertion(nums, k, p + 1, upper);
 }
 
 // Quicksort with Insertion sort 2.
@@ -179,12 +179,12 @@ function getRunTime(arrSize, func, trials) {
   return [average, stdev];
 }
 
-function _getRunTime(arrSize, func, limit, trials) {
+function _getRunTime(arrSize, func, k, trials) {
   let times = [];
   let count = 0;
   while (count < trials) {
     const t0 = performance.now();
-    func(shuffleArray(arrSize), limit);
+    func(shuffleArray(arrSize), k);
     const t1 = performance.now();
     times.push(t1 - t0);
     count++;
@@ -248,12 +248,12 @@ function QuicksortRutimes(
   this.quickSortInsertion10 = quickSortInsertion10;
   this.quickSortInsertion16 = quickSortInsertion16;
 }
-function _measureTimes(size, maxSize, trials, func, limits) {
+function _measureTimes(size, maxSize, trials, func, kArray) {
   const times = {};
   for (let i = size; i <= maxSize; i = i * 2) {
     let runTimes = [];
-    limits.forEach((limit) => {
-      runTimes.push(_getRunTime(i, func, limit, trials));
+    kArray.forEach((k) => {
+      runTimes.push(_getRunTime(i, func, k, trials));
     });
     times[i] = new QuicksortRutimes(...runTimes);
   }
