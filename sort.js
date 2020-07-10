@@ -83,18 +83,21 @@ function quickSort(nums, lower, upper) {
   }
 
   // Base case: An empty array or an array with only 1 item is sorted.
-  if (lower > upper) {
+  if (lower >= upper) {
     return;
   }
+
   let p = randomizedPartition(nums, lower, upper);
 
   quickSort(nums, lower, p - 1);
   quickSort(nums, p + 1, upper);
 }
 
+//console.log(quickSort(shuffleArray(24)));
+
 // Quicksort with Insertion Sort 1.
 // Insertion sort is preformed on the subarray left of the partition and then the subarray right of the partition after quicksort to the base case.
-function quickSortInsertion(nums, lower, upper) {
+function quickSortInsertion(nums, limit = 8, lower, upper) {
   if (lower === undefined) {
     lower = 0;
   }
@@ -102,14 +105,14 @@ function quickSortInsertion(nums, lower, upper) {
     upper = nums.length - 1;
   }
 
-  // Base case: Base on the analysis, insertion sort has a faster runtime than quicksort for n < 2**10 elements.
-  if (upper - lower <= 8) {
+  // Base case: Base on the analysis, insertion sort has a faster runtime than quicksort for n < 2**3 elements.
+  if (upper - lower <= limit) {
     return insertionSort(nums, (lower = lower), (upper = upper));
   }
   let p = randomizedPartition(nums, lower, upper);
 
-  quickSortInsertion(nums, lower, p - 1);
-  quickSortInsertion(nums, p + 1, upper);
+  quickSortInsertion(nums, limit, lower, p - 1);
+  quickSortInsertion(nums, limit, p + 1, upper);
 }
 
 // Quicksort with Insertion sort 2.
@@ -176,6 +179,21 @@ function getRunTime(arrSize, func, trials) {
   return [average, stdev];
 }
 
+function _getRunTime(arrSize, func, limit, trials) {
+  let times = [];
+  let count = 0;
+  while (count < trials) {
+    const t0 = performance.now();
+    func(shuffleArray(arrSize), limit);
+    const t1 = performance.now();
+    times.push(t1 - t0);
+    count++;
+  }
+  const average = Number(mean(times).toFixed(5));
+  const stdev = Number(std(times, 'uncorrected').toFixed(3));
+  return [average, stdev];
+}
+
 function shuffleArray(arrSize) {
   const arr = [];
   for (let i = 1; i <= arrSize; i++) {
@@ -189,7 +207,7 @@ function shuffleArray(arrSize) {
   return arr;
 }
 
-function RunTimes(
+function AllRunTimes(
   insertionSort,
   quickSort,
   quickSortInsertion,
@@ -203,27 +221,48 @@ function RunTimes(
   this.mergeSort = mergeSort;
 }
 
-function measureTimes(size, maxSize, trials, funcs) {
+function ComparisonTimes(insertionSort, quickSort) {
+  this.insertionSort = insertionSort;
+  this.quickSort = quickSort;
+}
+
+function measureTimes(size, maxSize, trials, funcs, table) {
   const times = {};
   for (let i = size; i <= maxSize; i = i * 2) {
     let runTimes = [];
     funcs.forEach((func) => {
       runTimes.push(getRunTime(i, func, trials));
-      console.log(`    ${func.name}, ${runTimes[runTimes.length - 1]}`);
     });
-    times[i] = new RunTimes(...runTimes);
-    console.log(i);
+    times[i] = new table(...runTimes);
   }
   console.table(times);
   return times;
 }
 
+function QuicksortRutimes(
+  quickSortInsertion8,
+  quickSortInsertion10,
+  quickSortInsertion16
+) {
+  this.quickSortInsertion8 = quickSortInsertion8;
+  this.quickSortInsertion10 = quickSortInsertion10;
+  this.quickSortInsertion16 = quickSortInsertion16;
+}
+function _measureTimes(size, maxSize, trials, func, limits) {
+  const times = {};
+  for (let i = size; i <= maxSize; i = i * 2) {
+    let runTimes = [];
+    limits.forEach((limit) => {
+      runTimes.push(_getRunTime(i, func, limit, trials));
+    });
+    times[i] = new QuicksortRutimes(...runTimes);
+  }
+  console.table(times);
+  return times;
+}
+
+//console.log(_measureTimes(8, 2 ** 22, 10, quickSortInsertion, [8, 10, 16]));
+
 console.log(
-  measureTimes(2, 2 ** 20, 20, [
-    insertionSort,
-    quickSort,
-    quickSortInsertion,
-    quickSortInsertion2,
-    mergeSort,
-  ])
+  measureTimes(2, 2 ** 10, 100000, [insertionSort, quickSort], ComparisonTimes)
 );

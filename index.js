@@ -1,6 +1,7 @@
 const log = (x) => (typeof x === 'number' ? Math.log2(x) : x);
 
-const chart = c3.generate({
+const chart1 = c3.generate({
+  bindto: '#allAlgo',
   data: {
     x: 'x',
     columns: [
