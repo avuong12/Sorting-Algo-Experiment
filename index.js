@@ -1,5 +1,6 @@
 const log = (x) => (typeof x === 'number' ? Math.log2(x) : x);
 
+// Graph 1. Runtimes for all algo.
 const chart1 = c3.generate({
   bindto: '#allAlgo',
   data: {
@@ -43,19 +44,13 @@ document.addEventListener('mouseout', (event) => {
   console.log(event.target.class === 'c3-event-rect');
 });
 
-const kCalculations = kValueData(
-  insertionCalConst1,
-  quicksortCalConst2,
-  quicksortCalConst4
-);
-
-tabulate(kCalculations, getColumnTitles(kCalculations), 'kTable');
-
+// Table 1. Runtimes for all algo.
 const data = tableData(runtimeData);
 
 // render the tables
 tabulate(data, getColumnTitles(data), 'allAlgoTable');
 
+// Graph 2. Quicksort vs Insertion Sort for small size arrays.
 const chart2 = c3.generate({
   bindto: '#insertionVsQuicksort',
   data: {
@@ -92,14 +87,16 @@ const chart2 = c3.generate({
   },
 });
 
+// Table 2. Insertion sort vs. quicksort
 const insertVquickData = tableData(insertionQuicksortData);
-// render the tables
+
 tabulate(
   insertVquickData,
   getColumnTitles(insertVquickData),
   'insertionVquicksortTable'
 );
 
+// Graph 3. Quicksort with Insertion hybrid with varying k values.
 const chart3 = c3.generate({
   bindto: '#quicksortInsertion',
   data: {
@@ -144,6 +141,7 @@ const chart3 = c3.generate({
   },
 });
 
+// Graph 4a. Quicksort with Insertion Hybrid k = 8.
 const chart4 = c3.generate({
   bindto: '#quicksort8',
   data: {
@@ -182,6 +180,7 @@ const chart4 = c3.generate({
   },
 });
 
+// Graph 4b. Quicksort with Insertion Hybrid k = 103
 const chart5 = c3.generate({
   bindto: '#quicksort103',
   data: {
@@ -219,3 +218,12 @@ const chart5 = c3.generate({
     },
   },
 });
+
+// Table 3. k Calculation.
+const kCalculations = kValueData(
+  insertionCalConst1,
+  quicksortCalConst2,
+  quicksortCalConst4
+);
+
+tabulate(kCalculations, getColumnTitles(kCalculations), 'kTable');
