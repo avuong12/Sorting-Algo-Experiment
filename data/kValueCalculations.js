@@ -7,8 +7,6 @@ function insertionCal(constant, startSize, endSize) {
   return row;
 }
 
-console.log(insertionCal(1, 4, 64));
-
 function quicksortCal(constant, startSize, endSize) {
   let row = {};
   while (startSize <= endSize) {
@@ -17,4 +15,22 @@ function quicksortCal(constant, startSize, endSize) {
   }
   return row;
 }
-console.log(quicksortCal(4, 4, 64));
+
+const insertionCalConst1 = insertionCal(1, 4, 32);
+const quicksortCalConst2 = quicksortCal(2, 4, 32);
+const quicksortCalConst4 = quicksortCal(4, 4, 32);
+
+// Make k data.
+function kValueData(insertionObj, quicksortObj2, quicksortObj4) {
+  const kData = [];
+  const size = Object.keys(insertionObj);
+  for (let i = 0; i < size.length; i++) {
+    let entry = {};
+    entry['Array Size (n)'] = size[i];
+    entry['insertion Sort, C = 1'] = insertionObj[size[i]];
+    entry['quicksort, C = 2'] = quicksortObj2[size[i]];
+    entry['quicksort, C = 4'] = quicksortObj4[size[i]];
+    kData.push(entry);
+  }
+  return kData;
+}

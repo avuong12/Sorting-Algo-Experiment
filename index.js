@@ -43,7 +43,16 @@ document.addEventListener('mouseout', (event) => {
   console.log(event.target.class === 'c3-event-rect');
 });
 
+const kCalculations = kValueData(
+  insertionCalConst1,
+  quicksortCalConst2,
+  quicksortCalConst4
+);
+
+tabulate(kCalculations, getColumnTitles(kCalculations), 'kTable');
+
 const data = tableData(runtimeData);
+
 // render the tables
 tabulate(data, getColumnTitles(data), 'allAlgoTable');
 
