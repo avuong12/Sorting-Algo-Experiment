@@ -44,50 +44,169 @@ document.addEventListener('mouseout', (event) => {
 });
 
 const data = tableData(runtimeData);
-
-function tabulate(data, columns) {
-  const table = d3.select('body').append('table');
-  const thead = table.append('thead');
-  const tbody = table.append('tbody');
-
-  // append the header row
-  thead
-    .append('tr')
-    .selectAll('th')
-    .data(columns)
-    .enter()
-    .append('th')
-    .text(function (column) {
-      return spaceCaseFormat(column);
-    });
-
-  // create a row for each object in the data
-  const rows = tbody.selectAll('tr').data(data).enter().append('tr');
-
-  // create a cell in each row for each column
-  const cells = rows
-    .selectAll('td')
-    .data(function (row) {
-      return columns.map(function (column) {
-        return { column: column, value: row[column] };
-      });
-    })
-    .enter()
-    .append('td')
-    .text(function (d) {
-      return d.value;
-    });
-
-  return table;
-}
-
-function getColumnTitles(data) {
-  let columnTitles = [];
-  for (let key in data[0]) {
-    columnTitles.push(key);
-  }
-  return columnTitles;
-}
-
 // render the tables
-tabulate(data, getColumnTitles(data));
+tabulate(data, getColumnTitles(data), 'allAlgoTable');
+
+const chart2 = c3.generate({
+  bindto: '#insertionVsQuicksort',
+  data: {
+    x: 'x',
+    columns: [
+      xValues(insertionQuicksortData).map(log),
+      dataValues(insertionQuicksortData, 'insertionSort').map(log),
+      dataValues(insertionQuicksortData, 'quicksort').map(log),
+    ],
+  },
+  size: {
+    height: 500,
+  },
+  axis: {
+    x: {
+      label: {
+        text: 'log2(array size)',
+        position: 'outer-center',
+      },
+    },
+    y: {
+      label: {
+        text: 'log2(runtime, milliseconds)',
+        position: 'outer-middle',
+      },
+    },
+    tooltip: {
+      format: {
+        name: function (d, index) {
+          return 'test' + index;
+        },
+      },
+    },
+  },
+});
+
+const insertVquickData = tableData(insertionQuicksortData);
+// render the tables
+tabulate(
+  insertVquickData,
+  getColumnTitles(insertVquickData),
+  'insertionVquicksortTable'
+);
+
+const chart3 = c3.generate({
+  bindto: '#quicksortInsertion',
+  data: {
+    x: 'x',
+    columns: [
+      xValues(quicksortInsertionData),
+      dataValues(quicksortInsertionData, '8'),
+      dataValues(quicksortInsertionData, '16'),
+      dataValues(quicksortInsertionData, '32'),
+      dataValues(quicksortInsertionData, '64'),
+      dataValues(quicksortInsertionData, '103'),
+      dataValues(quicksortInsertionData, '128'),
+    ],
+  },
+  size: {
+    height: 500,
+  },
+  axis: {
+    x: {
+      label: {
+        text: 'array size',
+        position: 'outer-center',
+      },
+      tick: {
+        rotate: 75,
+        multiline: false,
+      },
+    },
+    y: {
+      label: {
+        text: 'runtime, milliseconds',
+        position: 'outer-middle',
+      },
+    },
+    tooltip: {
+      format: {
+        name: function (d, index) {
+          return 'test' + index;
+        },
+      },
+    },
+  },
+});
+
+const chart4 = c3.generate({
+  bindto: '#quicksort8',
+  data: {
+    x: 'x',
+    columns: [
+      xValues(quicksortData8).map(log),
+      dataValues(quicksortData8, 'quicksort').map(log),
+      dataValues(quicksortData8, 'quicksortInsertion').map(log),
+      //dataValues(quicksortData8, 'quicksortInsertion2').map(log),
+    ],
+  },
+  size: {
+    height: 500,
+    width: 600,
+  },
+  axis: {
+    x: {
+      label: {
+        text: 'log2(array size)',
+        position: 'outer-center',
+      },
+    },
+    y: {
+      label: {
+        text: 'log2(runtime, milliseconds)',
+        position: 'outer-middle',
+      },
+    },
+    tooltip: {
+      format: {
+        name: function (d, index) {
+          return 'test' + index;
+        },
+      },
+    },
+  },
+});
+
+const chart5 = c3.generate({
+  bindto: '#quicksort103',
+  data: {
+    x: 'x',
+    columns: [
+      xValues(quicksortData103).map(log),
+      dataValues(quicksortData103, 'quicksort').map(log),
+      dataValues(quicksortData103, 'quicksortInsertion').map(log),
+      //dataValues(quicksortData103, 'quicksortInsertion2').map(log),
+    ],
+  },
+  size: {
+    height: 500,
+    width: 600,
+  },
+  axis: {
+    x: {
+      label: {
+        text: 'log2(array size)',
+        position: 'outer-center',
+      },
+    },
+    y: {
+      label: {
+        text: 'log2(runtime, milliseconds)',
+        position: 'outer-middle',
+      },
+    },
+    tooltip: {
+      format: {
+        name: function (d, index) {
+          return 'test' + index;
+        },
+      },
+    },
+  },
+});

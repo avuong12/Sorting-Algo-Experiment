@@ -8,6 +8,9 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://unpkg.com/c3@0.7.18/c3.js"></script>
     <script src="./data/allAlgodata.js"></script>
+    <script src="./data/insertionVsQuicksortData.js"></script>
+    <script src="./data/quicksortInsertionData.js"></script>
+    <script src="./data/quicksortData.js"></script>
     <script src="util.js"></script>
     <title>Sorting Algo Experiment</title>
   </head>
@@ -16,30 +19,86 @@
     <p>
       <h3>Purpose:</h3> The goal of this experiment is to measure and compare the
       efficiency of sorting algorithms for sorting n elements. The algorithms
-      that are examined are <a href="https://en.wikipedia.org/wiki/Insertion_sort">Insertion Sort</a>, <a href="https://en.wikipedia.org/wiki/Quicksort">Quicksort</a>, Quicksort with Insertion
-      Sort, and <a href="https://en.wikipedia.org/wiki/Merge_sort">Merge Sort</a>.
+      that are examined are <a href="https://en.wikipedia.org/wiki/Insertion_sort">Insertion Sort</a>, <a href="https://en.wikipedia.org/wiki/Quicksort">Randomized Quicksort</a>, Quicksort with Insertion
+      Sort, and <a href="https://en.wikipedia.org/wiki/Merge_sort">Merge Sort</a>. This experiment will also determine which k value, the value in which the base case condition is met for quicksort and insertion sort will sort the rest of the array, will provide the most efficient hybrid sorting algorithm when combining quicksort with insertion sort.
     </p>
     <P>
-      <h3>Hypothesis:</h3> Quicksort is more efficient than insertion sort for sorting large arrays. The asymptotic time complexity, big-O, of insertion sort is n<sup>2</sup> while the big-O of quicksort is nlog(n). However, when implementing each sorting algorithm, quicksort has greater overhead than insertion sort and is less efficient than insertion sort for sorting smaller arrays. 
+      <h3>Hypothesis:</h3> Quicksort is more efficient than insertion sort for sorting large arrays. The asymptotic time complexity, big-O, of insertion sort is n<sup>2</sup> while the big-O of quicksort is nlog(n). However, when implementing each sorting algorithm, quicksort has greater overhead than insertion sort and is less efficient than insertion sort for sorting smaller arrays. Quicksort combine with insertion sort would be the most efficient algorithm to sort larger size arrays.   
     </P>
     <p>
-      <h3>Experimental Procedure:</h3> The runtime of Merge Sort, Insertion Sort, Quicksort, and Quicksort with Insertion Sort (QuicksortInsertion and QuicksortInsertion2) algorithms where measured for sorting n elements, where 2<sup>3</sup> ≤ n ≤ 2<sup>20</sup>. There were 20 runtime measurements of each array size. Precision analysis was done for each array size by calculating the average and standard deviation of the runtimes in milliseconds. 
+      <h3>Experimental Procedure:</h3> 
+      <p>
+      <b>Part I. Measure Runtime for All 4 Sorting Algothrims.</b>
+      </p>
+      The runtime of Merge Sort, Insertion Sort, Quicksort, and Quicksort with Insertion Sort (QuicksortInsertion and QuicksortInsertion2) algorithms where measured for sorting n elements, where 2<sup>1</sup> ≤ n ≤ 2<sup>20</sup>. There were 20 runtime measurements of each array size. Precision analysis was done for each array size by calculating the average and standard deviation of the runtimes in milliseconds. 
+      <p>
+      <b>Part II. Determining k for Quicksort with Insertion Sort.</b>
+      <p>
+        To determine the size of the array (k) in which quicksort is faster than insertion sort. The runtime of insertion sort and quicksort algorithms where measured for sorting n elements, where 2<sup>2</sup> ≤ n ≤ 2<sup>10</sup>. There were 100,000 runtime measurements of each array size. The runtime for Quicksort with Insertion sort was measured, where 2<sup>3</sup> ≤ k ≤ 2<sup>8</sup> and 2<sup>2</sup> ≤ n ≤ 2<sup>22</sup>. Precision analysis was done for each array size and k by calculating the average and standard deviation of the runtimes in milliseconds. 
+      </p>
+      </p>
     </p>
     <p>
       <h3>Results:</h3>
     </p>
+    <p>The runtimes for each algorithm is plotted in a log/ log plot as shown in Graph 1. The slope for insertion sort is 2, which is consistant with O(nk). The slope for merge sort is 1, which is consistant with  O(nlog(n)). The slope for quicksort is also 1 with the constant less than the constant for merge sort. Quicksort and both variations of quicksort with insertion sort where k = 8 had the almost overlaying trend for increasing array size up to n = 2<sup>20</sup>.</p> In Graph 2, the runtimes of insertion sort and quicksort shows that insertion sort is more efficient than quicksort at sorting arrays that are smaller than approximately 103 elements. The k variable was calculated from the intersection point of insertion sort and quicksort to be approximately 103 elements.
     <p>
       <h4>Runtimes of Different Algothrims Sorting n Elements</h4>
     </p>
-    <div id="allAlgo"></div>
-    <p class="caption">
-      <b>Graph 1.</b> The average runtimes of the sorting algorithms for increasing array size in a log/ log plot. The slope for insertion sort is 2, which is consistant with a big-O of n<sup>2</sup>. The slope for merge sort is 1, which is consistant with a big-O of nlog(n). The slope for quicksort is also 1 with the constant less than the constant for merge sort.
-    </p>
-    <p>
-      <p class="tableHeading">
-        <b>Table 1.</b> The average runtimes and standard deviation in milliseconds for sorting an array size of n.
+    <div>
+      <div id="allAlgo"></div>
+      <p class="caption">
+      <b>Graph 1.</b> The average runtimes of the sorting algorithms for increasing array size in a log/ log plot. 
       </p>
+    </div>
+    <div>
+      <p class="tableHeading">
+        <b>Table 1.</b> The average runtimes and standard deviation of 20 trials is presented in milliseconds for sorting an array size of n.
+      </p>
+      <table id="allAlgoTable"></table>
+    </div>
+    <p>The average runtimes of insertion sort and quicksort was measured to determine the array size, k value, at which quicksort is more efficient than insertion sort.</p>
+    <h4>Insertion Sort vs. Quicksort Runtimes for Small Array Size</h4>
+    <div id="insertionVsQuicksort"></div>
+    <p class="caption">
+      <b>Graph 2.</b> The average runtimes for insertion sort and quicksort in log/ log plot. The k value, or the intersecting point, is at approximately 103.46 elements. 
     </p>
+    <div>
+      <p class="tableHeading">
+        <b>Table 2.</b> The average runtimes and standard deviation of 100,000 trials is presented in milliseconds for sorting an array size of n. 
+      </p>
+      <table id="insertionVquicksortTable"></table>
+    </div>
+    <div>
+      <h4>k value Comparison for Quicksort with Insertion Sort Hybrid.</h4>
+      <div id="quicksortInsertion"></div>
+      <p class="caption">
+        <b>Graph 3.</b> The average runtimes for quicksort with insertion sort at various k values where k is between 2<sup>3</sup> and 2<sup>8</sup>. 
+      </p>
+    </div>
+    <h4>Quicksort vs. Quicksort Insertion Hybrid Runtimes</h4>
+    <div class="comparisonCharts">
+      <div class="item_chart">
+        <h4>k = 8</h4>
+        <div id="quicksort8"></div>
+        <p class="caption">
+         (a)
+        </p>
+      </div>
+      <div class="item_chart">
+        <h4>k = 103</h4>
+        <div id="quicksort103"></div>
+        <p class="caption">
+          (b)
+        </p>
+      </div>
+    </div>
+    <p class="caption">
+      <b>Graph 4a-b. </b> The average runtimes for quicksort verus quicksort with insertion sort hybrid where a) k = 8 and b) k = 103 for array sizes between 2<sup>2</sup> and 2<sup>26</sup>.
+     </p>
+      <h3>Discussion:</h3>
+      <p>The trend in the runtime measurements for each sorting algorithm at increasing array size, n, were consistant with the expected big-O of the algorithms. Insertion sort is not an efficient algorithm for sorting large size arrays as the runtime will increase by a factor of 4 each time the array size doubles.  </p>
+    </div>
     <script src="./index.js"></script>
   </body>
 </html>

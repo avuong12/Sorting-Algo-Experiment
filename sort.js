@@ -74,7 +74,7 @@ function mergeSort(nums) {
 }
 
 // Quicksort
-function quickSort(nums, lower, upper) {
+function quicksort(nums, lower, upper) {
   if (lower === undefined) {
     lower = 0;
   }
@@ -89,15 +89,13 @@ function quickSort(nums, lower, upper) {
 
   let p = randomizedPartition(nums, lower, upper);
 
-  quickSort(nums, lower, p - 1);
-  quickSort(nums, p + 1, upper);
+  quicksort(nums, lower, p - 1);
+  quicksort(nums, p + 1, upper);
 }
-
-//console.log(quickSort(shuffleArray(24)));
 
 // Quicksort with Insertion Sort 1.
 // Insertion sort is preformed on the subarray left of the partition and then the subarray right of the partition after quicksort to the base case.
-function quickSortInsertion(nums, k = 8, lower, upper) {
+function quicksortInsertion(nums, k = 8, lower, upper) {
   if (lower === undefined) {
     lower = 0;
   }
@@ -111,18 +109,18 @@ function quickSortInsertion(nums, k = 8, lower, upper) {
   }
   let p = randomizedPartition(nums, lower, upper);
 
-  quickSortInsertion(nums, k, lower, p - 1);
-  quickSortInsertion(nums, k, p + 1, upper);
+  quicksortInsertion(nums, k, lower, p - 1);
+  quicksortInsertion(nums, k, p + 1, upper);
 }
 
 // Quicksort with Insertion sort 2.
 // Insertion sort is prefromed on the entire quicksorted array up to the base case.
-function quickSortInsertion2(nums, lower, upper) {
-  _quickSortInsertion(nums, lower, upper);
+function quicksortInsertion2(nums, lower, upper) {
+  _quicksortInsertion(nums, lower, upper);
   insertionSort(nums);
 }
 
-function _quickSortInsertion(nums, lower, upper) {
+function _quicksortInsertion(nums, lower, upper) {
   if (lower === undefined) {
     lower = 0;
   }
@@ -136,8 +134,8 @@ function _quickSortInsertion(nums, lower, upper) {
   }
   let p = randomizedPartition(nums, lower, upper);
 
-  quickSortInsertion(nums, lower, p - 1);
-  quickSortInsertion(nums, p + 1, upper);
+  _quicksortInsertion(nums, lower, p - 1);
+  _quicksortInsertion(nums, p + 1, upper);
 }
 
 function partition(nums, lower, upper) {
@@ -207,25 +205,6 @@ function shuffleArray(arrSize) {
   return arr;
 }
 
-function AllRunTimes(
-  insertionSort,
-  quickSort,
-  quickSortInsertion,
-  quickSortInsertion2,
-  mergeSort
-) {
-  this.insertionSort = insertionSort;
-  this.quickSort = quickSort;
-  this.quickSortInsertion = quickSortInsertion;
-  this.quickSortInsertion2 = quickSortInsertion2;
-  this.mergeSort = mergeSort;
-}
-
-function ComparisonTimes(insertionSort, quickSort) {
-  this.insertionSort = insertionSort;
-  this.quickSort = quickSort;
-}
-
 function measureTimes(size, maxSize, trials, funcs, table) {
   const times = {};
   for (let i = size; i <= maxSize; i = i * 2) {
@@ -239,15 +218,6 @@ function measureTimes(size, maxSize, trials, funcs, table) {
   return times;
 }
 
-function QuicksortRutimes(
-  quickSortInsertion8,
-  quickSortInsertion10,
-  quickSortInsertion16
-) {
-  this.quickSortInsertion8 = quickSortInsertion8;
-  this.quickSortInsertion10 = quickSortInsertion10;
-  this.quickSortInsertion16 = quickSortInsertion16;
-}
 function _measureTimes(size, maxSize, trials, func, kArray) {
   const times = {};
   for (let i = size; i <= maxSize; i = i * 2) {
@@ -255,14 +225,60 @@ function _measureTimes(size, maxSize, trials, func, kArray) {
     kArray.forEach((k) => {
       runTimes.push(_getRunTime(i, func, k, trials));
     });
-    times[i] = new QuicksortRutimes(...runTimes);
+    times[i] = new QuicksortRuntimes(...runTimes);
   }
   console.table(times);
   return times;
 }
 
-//console.log(_measureTimes(8, 2 ** 22, 10, quickSortInsertion, [8, 10, 16]));
+function AllRunTimes(
+  insertionSort,
+  quicksort,
+  quicksortInsertion,
+  quicksortInsertion2,
+  mergeSort
+) {
+  this.insertionSort = insertionSort;
+  this.quicksort = quicksort;
+  this.quicksortInsertion = quicksortInsertion;
+  this.quicksortInsertion2 = quicksortInsertion2;
+  this.mergeSort = mergeSort;
+}
 
+function ComparisonTimes(insertionSort, quicksort) {
+  this.insertionSort = insertionSort;
+  this.quicksort = quicksort;
+}
+
+function ComparisonQuicksorts(
+  quicksort,
+  quicksortInsertion,
+  quicksortInsertion2
+) {
+  this.quicksort = quicksort;
+  this.quicksortInsertion = quicksortInsertion;
+  this.quicksortInsertion2 = quicksortInsertion2;
+}
+
+function QuicksortRuntimes(k8, k16, k32, k64, k103, k128) {
+  this.k8 = k8;
+  this.k16 = k16;
+  this.k32 = k32;
+  this.k64 = k64;
+  this.k103 = k103;
+  this.k128 = k128;
+}
+
+console.log(_measureTimes(8, 2 ** 26, 10, quicksortInsertion, [0, 8, 103]));
+
+/*
 console.log(
-  measureTimes(2, 2 ** 10, 100000, [insertionSort, quickSort], ComparisonTimes)
+  measureTimes(
+    2 ** 2,
+    2 ** 26,
+    20,
+    [quicksort, _quicksortInsertion, quicksortInsertion2],
+    ComparisonQuicksorts
+  )
 );
+**/
