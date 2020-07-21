@@ -17,11 +17,12 @@
   </head>
   <body>
     <h1>Sorting Algothrim Runtimes</h1>
+    <h5>By Angela Vuong</h5>
     <p>
       <h3>Purpose:</h3> The goal of this experiment is to measure and compare the
       efficiency of sorting algorithms for sorting n elements. The algorithms
       that are examined are <a href="https://en.wikipedia.org/wiki/Insertion_sort">Insertion Sort</a>, <a href="https://en.wikipedia.org/wiki/Quicksort">Randomized Quicksort</a>, Quicksort with Insertion 
-      Sort Hybrid, and <a href="https://en.wikipedia.org/wiki/Merge_sort">Merge Sort</a>. This experiment will also determine which k value, the value in which the base case condition is met for quicksort so that insertion sort will sort the rest of the array, will provide the most efficient hybrid sorting algorithm when combining quicksort with insertion sort.
+      Sort Hybrid, and <a href="https://en.wikipedia.org/wiki/Merge_sort">Merge Sort</a>. This experiment will also determine which k value, the subarray length in which the base case condition is met for quicksort so that insertion sort will sort the rest of the array, will provide the most efficient hybrid sorting algorithm when combining quicksort with insertion sort.
     </p>
     <p>
       <h3>Introduction:</h3>
@@ -149,6 +150,26 @@
       </p>
       <p>All the codes were executed on a Mac laptop using OS X El Capitan, version 10.11.6 with a 2.7 GHz Intel Core i5 processor.</p>
     </p>
+      <pre class="singleBlockCode">
+        <code>
+          /* MEASURE RUNTIME for INPUT ARRAY SIZE, SORTING FUNCTION, and NUMBER of TRIALS. **/
+
+          function getRunTime(arrSize, func, trials) {
+            let times = [];
+            let count = 0;
+            while (count < trials) {
+              const t0 = performance.now();
+              func(shuffleArray(arrSize));
+              const t1 = performance.now();
+              times.push(t1 - t0);
+              count++;
+            }
+            const average = Number(mean(times).toFixed(5));
+            const stdev = Number(std(times, 'uncorrected').toFixed(3));
+            return [average, stdev];
+          }
+        </code>
+      </pre>
     <p>
       <h3>Results:</h3>
     </p>
@@ -204,15 +225,35 @@
         </p>
       </div>
     </div>
-    <p class="caption">
+      <p class="caption">
       <b>Graph 4a-b. </b> The average runtimes for quicksort verus quicksort with insertion sort hybrid where a) k = 8 and b) k = 103 for array sizes between 2<sup>2</sup> and 2<sup>26</sup>.
      </p>
       <h3>Discussion:</h3>
-      <p>The trend in the runtime measurements for each sorting algorithm at increasing array size, n, were consistant with the expected big-O of the algorithms. Insertion sort is not an efficient algorithm for sorting large size arrays as the runtime will increase by a factor of 4 each time the array size doubles.  </p>
+      <p>The best case running time for insertion sort occurs if the array is already sorted. As each element in the array is visited, the comparative operation is at a constant cost and no additional operations need to be done to place the element in the correct index, thus giving insertion sort on an already sorted array O(n). The worst case running time would be if the array is in reverse sorted order which can be expressed as an<sup>2</sup> + bn + c, for constants a, b, c, or O(n<sup>2</sup>). A quadratic running time will take exponentially more time to execute as n increases and is not a recommended algorithm to use to sort large array sizes.</p>
+
+      <p>To determine the running time for quicksort, we need to analyze the running time for partitioning. The worst case partitioning would be when the partitioning routinely produces a subarray with n-1 elements (-1 for the pivot) and a subarray with 0 elements. If this unbalanced partitioning occurs at each level of the recursion, the worst case running time will be Ө(n<sup>2</sup>), which is no better than insertion sort.</p> 
+        
+      <p>The best case partitioning would be an even split that produces two subarrays where one subarray is at most 1 more than the other (n/2). The recursion tree has depth of Ө(log n) and O(n) work is performed at each level (placing the pivot element in the correct index). This is still true with a 9-to-1 proportional split. Therefore, the average running time of quicksort is much closer to the best case of O(n log n). To ensure that all permutations of the input numbers are equally likely, we can randomize the partition by implementing random sampling. For randomized partitioning, an element is chosen at random from the subarray. The element is swapped with the element in the last index to be the pivot (see code in Experimental Procedure). The expected behavior of both algorithms is shown in Graph 1. Merge sort, in which the array is also split into 2 subarrays, shows a running time of O(n log n). The cost of the merge operation is more expensive than the partition operation, because the merge operation is not done in place, rather elements are merged into another array, thus also requiring more memory allocation. The greater cost of the merge operation is represented in the greater constant of the merge sort's trendline.</p>
+        
+      </p>To further optimize the quicksort algorithm, we can combine the algorithm with insertion sort and take advantage of the best case running time of O(n) for insertion sort of an already sorted array. Given an input of an array of 8 elements that is already close to sorted, the number of steps for insertion sort is far less than the number of steps for quicksort. Knowing that quicksort is much faster for large size arrays, much of the heavy lifting can be done with quicksort for subarrays of sizes larger than a certain threshold and leaving the nearly sorted below the threshold to be sorted with insertion sort. The threshold would be the point in which quicksort is faster than insertion sort. Focusing on small size arrays, we can run a simple math calculation for the cost of each algorithm in sorting small size arrays.</p> 
+      
+      <p class="equation">
+        Insertion sort : C<sub>1</sub> x N x N (eq. 1)
+      </p>
+      <p class="equation">  
+        Quicksort : C<sub>2</sub> x N x log(N) (eq. 2)
+      </p>  
+
       <p class="tableHeading"><b>Table 3:</b> Simple Computation of the Cost of Insertion Sort and Quicksort at Different Constants.</p>
       <table id="kTable"></table>
-      <div id="kCalculation"></div>
-    </div>
+
+      <p>The behavior of both algorithms is seen in Table 3. for 2 sets of constants C<sub>1</sub> and C<sub>2</sub>. The threshold is at N = 4 for C<sub>2</sub> = 2 and N = 16 for C<sub>2</sub> = 4.  The cost for insertion sort where C<sub>1</sub> = 1 is the same as quicksort in these cases. The cost for insertion sort and quicksort is within 50% of each other for N = 8. This means k = 8 would be at most 50% worse than a true k value between 4 and 16.</p> 
+        
+      <p>If we take k = 8 to be the closest optimal value, then we should see the point of  intersection between insertion sort and quicksort to be closer to 8 in Graph 2 and faster runtimes of the hybrid algorithm for k = 8 in Graph 3. However, insertion sort and quicksort intersect at approximately 103 and the runtimes of the hybrid algorithm at the varying k values do not show significant difference in performance for the given range of k values.</p> 
+        
+      <p>When the hybrid algorithm is compared to quicksort, the hybrid algorithm where k = 103 shows a greater runtime separation from quicksort and consistent faster runtime performance as opposed to the hybrid algorithm where k = 8. This discrepancy can be further examined by conducting this experiment on different computers. Actual runtime is dependent on how fast the computer executes the code, how fast it caches data, and how fast it retrieves data from memory. The latter is critical for n log (n) algorithms as that set of actions is needed for the stack in recursion.</p> 
+        
+      <p>The experiment was successful in showing the behavior of three commonly used sorting algorithms. Quicksort is the preferred algorithm to use for sorting very large arrays. The quadratic growth starts to become evident at n = 2<sup>7</sup> and is quickly outperformed by quicksort at n = 2<sup>11</sup> by a factor of 10. The performance of quicksort can be enhanced when insertion sort is used to sort the subarrays with length equal to or less than the threshold. The most optimal threshold at which the rest of the array is sorted by insertion sort was determined to be approximately k = 103 on the computer that conducted the experiment.</p>
     <script src="./index.js"></script>
   </body>
 </html>
