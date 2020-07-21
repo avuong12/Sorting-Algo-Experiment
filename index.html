@@ -36,6 +36,112 @@
       <b>Part I. Measure Runtime for All 4 Sorting Algothrims.</b>
       </p>
       The runtime of Merge Sort, Insertion Sort, Quicksort, and Quicksort with Insertion Sort (QuicksortInsertion and QuicksortInsertion2) algorithms where measured for sorting n elements, where 2<sup>1</sup> ≤ n ≤ 2<sup>20</sup>. There were 20 runtime measurements of each array size. Precision analysis was done for each array size by calculating the average and standard deviation of the runtimes in milliseconds. 
+      <div class="batchCode">
+        <pre class="singleCode">
+          <code>
+            /* INSERTION SORT **/
+
+            function insertionSort(nums, lower = 0, upper = nums.length - 1) {
+              for (let i = lower + 1; i <= upper; i++) {
+                for (let j = i; j > lower && nums[j - 1] > nums[j]; j--) {
+                  swap(nums, j, j - 1);
+                }
+              }
+              return nums;
+            }
+          </code>
+        </pre>
+        <pre class="singleCode">
+          <code>
+            /* MERGE SORT **/
+
+            function mergeSort(nums) {
+              if (nums.length <= 1) {
+                return nums;
+              }
+              // Split all the way
+              let splitArrays = split(nums);
+              let sortedA = mergeSort(splitArrays[0]);
+              let sortedB = mergeSort(splitArrays[1]);
+            
+              // merge sorted (nums.length 0 and 1 are sorted)
+              return merge(sortedA, sortedB);
+            }
+          </code>
+        </pre>
+      </div>
+      <div class="batchCode">
+        <pre class="singleCode">
+          <code>
+            /* QUICKSORT **/
+
+            function quicksort(nums, lower, upper) {
+              if (lower === undefined) {
+                lower = 0;
+              }
+              if (upper === undefined) {
+                upper = nums.length - 1;
+              }
+          
+              if (lower >= upper) {
+                return;
+              }
+            
+              let p = randomizedPartition(nums, lower, upper);
+            
+              quicksort(nums, lower, p - 1);
+              quicksort(nums, p + 1, upper);
+            }
+          </code>
+        </pre>
+        <pre class="singleCode">
+          <code>
+            /* QUICKSORT with INSERTION SORT HYBRID **/
+
+            function quicksortInsertion(nums, k = 8, lower, upper) {
+              if (lower === undefined) {
+                lower = 0;
+              }
+              if (upper === undefined) {
+                upper = nums.length - 1;
+              }
+
+              if (upper - lower <= k) {
+                return insertionSort(nums, (lower = lower), (upper = upper));
+              }
+              let p = randomizedPartition(nums, lower, upper);
+            
+              quicksortInsertion(nums, k, lower, p - 1);
+              quicksortInsertion(nums, k, p + 1, upper);
+            }
+          </code>
+        </pre>
+      </div>
+      <pre class="singleBlockCode">
+        <code>
+          /* PARTITION AND RANDOMIZED PARTITION FOR QUICKSORT. **/
+
+          function partition(nums, lower, upper) {
+            let pivot = nums[upper];
+            let i = lower - 1;
+            for (let j = lower; j < upper; j++) {
+              if (nums[j] <= pivot) {
+                swap(nums, ++i, j);
+              }
+            }
+            swap(nums, ++i, upper);
+            return i;
+          }
+      
+          function randomizedPartition(nums, lower, upper) {
+            let i = Math.floor(Math.random() * (upper - lower + 1)) + lower;
+            swap(nums, i, upper);
+            return partition(nums, (lower = lower), (upper = upper));
+          }
+        </code>
+      </pre>
+      
+      
       <p>
       <b>Part II. Determining k for Quicksort with Insertion Sort.</b>
       <p>
