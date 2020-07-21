@@ -25,6 +25,7 @@ h4 {
 
 .tableHeading {
   font-size: 14px;
+  text-align: center;
 }
 
 h6 {
@@ -52,4 +53,9 @@ tr:hover {
 
 .item_chart {
   flex: auto;
+}
+
+.subgraphLabel {
+  text-align: center;
+  font-size: 14px;
 }

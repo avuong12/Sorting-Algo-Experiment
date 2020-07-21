@@ -20,11 +20,15 @@
     <p>
       <h3>Purpose:</h3> The goal of this experiment is to measure and compare the
       efficiency of sorting algorithms for sorting n elements. The algorithms
-      that are examined are <a href="https://en.wikipedia.org/wiki/Insertion_sort">Insertion Sort</a>, <a href="https://en.wikipedia.org/wiki/Quicksort">Randomized Quicksort</a>, Quicksort with Insertion
-      Sort, and <a href="https://en.wikipedia.org/wiki/Merge_sort">Merge Sort</a>. This experiment will also determine which k value, the value in which the base case condition is met for quicksort and insertion sort will sort the rest of the array, will provide the most efficient hybrid sorting algorithm when combining quicksort with insertion sort.
+      that are examined are <a href="https://en.wikipedia.org/wiki/Insertion_sort">Insertion Sort</a>, <a href="https://en.wikipedia.org/wiki/Quicksort">Randomized Quicksort</a>, Quicksort with Insertion 
+      Sort Hybrid, and <a href="https://en.wikipedia.org/wiki/Merge_sort">Merge Sort</a>. This experiment will also determine which k value, the value in which the base case condition is met for quicksort so that insertion sort will sort the rest of the array, will provide the most efficient hybrid sorting algorithm when combining quicksort with insertion sort.
     </p>
-    <P>
-      <h3>Hypothesis:</h3> Quicksort is more efficient than insertion sort for sorting large arrays. The asymptotic time complexity, big-O, of insertion sort is n<sup>2</sup> while the big-O of quicksort is nlog(n). However, when implementing each sorting algorithm, quicksort has greater overhead than insertion sort and is less efficient than insertion sort for sorting smaller arrays. Quicksort combine with insertion sort would be the most efficient algorithm to sort larger size arrays.   
+    <p>
+      <h3>Introduction:</h3>
+      The running time of an algorithm on a particular input is the number of primitive operations or steps executed. An algorithm's running time depends on the input size that is given. The running time for the examined algorithms are expressed as the asymptotic time complexity, or big-O. The runtime of the algorithm is the actual measurement of the time the code takes to execute. The measurement of the runtimes of each algorithm for variable n as the array size can be quite representative of the running time of the algorithm. Proper measurement of the runtimes should show O(n<sup>2</sup>) for insertion sort, O(n log n) for quicksort, and O(n log n) for merge sort. 
+    </p>
+    <p>
+      <h3>Hypothesis:</h3> Quicksort is more efficient than insertion sort for sorting large arrays given O(n<sup>2</sup>) for insertion sort and O(n log n) for quicksort. However, when implementing each sorting algorithm, quicksort has greater overhead than insertion sort and is less efficient than insertion sort for sorting smaller arrays. Quicksort combine with insertion sort would be the most efficient algorithm to sort larger size arrays.   
     </P>
     <p>
       <h3>Experimental Procedure:</h3> 
@@ -37,7 +41,7 @@
       <p>
         To determine the size of the array (k) in which quicksort is faster than insertion sort. The runtime of insertion sort and quicksort algorithms where measured for sorting n elements, where 2<sup>2</sup> ≤ n ≤ 2<sup>10</sup>. There were 100,000 runtime measurements of each array size. The runtime for Quicksort with Insertion sort was measured, where 2<sup>3</sup> ≤ k ≤ 2<sup>8</sup> and 2<sup>2</sup> ≤ n ≤ 2<sup>22</sup>. Precision analysis was done for each array size and k by calculating the average and standard deviation of the runtimes in milliseconds. 
       </p>
-      </p>
+      <p>All the codes were executed on a Mac laptop using OS X El Capitan, version 10.11.6 with a 2.7 GHz Intel Core i5 processor.</p>
     </p>
     <p>
       <h3>Results:</h3>
@@ -54,7 +58,7 @@
     </div>
     <div>
       <p class="tableHeading">
-        <b>Table 1.</b> The average runtimes and standard deviation of 20 trials is presented in milliseconds for sorting an array size of n.
+        <b>Table 1.</b> The Average Runtimes and Standard Deviation of 4 Sorting Algothrims in Sorting Array Size (n).
       </p>
       <table id="allAlgoTable"></table>
     </div>
@@ -66,7 +70,7 @@
     </p>
     <div>
       <p class="tableHeading">
-        <b>Table 2.</b> The average runtimes and standard deviation of 100,000 trials is presented in milliseconds for sorting an array size of n. 
+        <b>Table 2:</b> The Average Runtimes and Standard Deviation of Quicksort and Insertion Sort in Sorting Small Array Sizes. 
       </p>
       <table id="insertionVquicksortTable"></table>
     </div>
@@ -82,15 +86,15 @@
       <div class="item_chart">
         <h4>k = 8</h4>
         <div id="quicksort8"></div>
-        <p class="caption">
-         (a)
+        <p class="subgraphLabel">
+         <i>(a)</i>
         </p>
       </div>
       <div class="item_chart">
         <h4>k = 103</h4>
         <div id="quicksort103"></div>
-        <p class="caption">
-          (b)
+        <p class="subgraphLabel">
+          <i>(b)</i>
         </p>
       </div>
     </div>
@@ -99,7 +103,9 @@
      </p>
       <h3>Discussion:</h3>
       <p>The trend in the runtime measurements for each sorting algorithm at increasing array size, n, were consistant with the expected big-O of the algorithms. Insertion sort is not an efficient algorithm for sorting large size arrays as the runtime will increase by a factor of 4 each time the array size doubles.  </p>
+      <p class="tableHeading"><b>Table 3:</b> Simple Computation of the Cost of Insertion Sort and Quicksort at Different Constants.</p>
       <table id="kTable"></table>
+      <div id="kCalculation"></div>
     </div>
     <script src="./index.js"></script>
   </body>

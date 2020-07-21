@@ -27,10 +27,25 @@ function kValueData(insertionObj, quicksortObj2, quicksortObj4) {
   for (let i = 0; i < size.length; i++) {
     let entry = {};
     entry['Array Size (n)'] = size[i];
-    entry['insertion Sort, C = 1'] = insertionObj[size[i]];
-    entry['quicksort, C = 2'] = quicksortObj2[size[i]];
-    entry['quicksort, C = 4'] = quicksortObj4[size[i]];
+    entry['insertion Sort, C1 = 1'] = insertionObj[size[i]];
+    entry['quicksort, C2 = 2'] = quicksortObj2[size[i]];
+    entry['quicksort, C2 = 4'] = quicksortObj4[size[i]];
     kData.push(entry);
   }
   return kData;
 }
+
+function kValueDataGraph(insertionObj, quicksortObj2, quicksortObj4) {
+  const kData = {};
+  for (let keys in insertionObj) {
+    kData[keys] = {};
+    kData[keys]['Insertion Sort'] = insertionObj[keys];
+    kData[keys]['Quicksort, C2 = 2'] = quicksortObj2[keys];
+    kData[keys]['Quicksort, C2 = 4'] = quicksortObj4[keys];
+  }
+  return kData;
+}
+
+console.log(
+  kValueDataGraph(insertionCalConst1, quicksortCalConst2, quicksortCalConst4)
+);
