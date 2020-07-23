@@ -1,9 +1,8 @@
-\documentclass(article)
-\usepackage(apacite)
+\documentclass{article}
+\usepackage{biblatex}
+\bibliography{References}
 
-\begin(document)
-\maketitle
-
-\bibliographystyle(apacite)
-\bibiliography(References)
-\end(document)
+\begin{document}
+\autocite{cormen01introduction}
+\printbibliography
+\end{document}
