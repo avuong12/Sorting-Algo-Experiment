@@ -1,3 +1,8 @@
+const scrollToDiv = (id) => {
+  const elmnt = document.getElementById(id);
+  elmnt.scrollIntoView({ behavior: 'smooth' });
+};
+
 const log = (x) => (typeof x === 'number' ? Math.log2(x) : x);
 
 // Graph 1. Runtimes for all algo.
@@ -10,7 +15,7 @@ const chart1 = c3.generate({
       dataValues(runtimeData, 'insertionSort').map(log),
       dataValues(runtimeData, 'quicksort').map(log),
       dataValues(runtimeData, 'quicksortInsertion').map(log),
-      dataValues(runtimeData, 'quicksortInsertion2').map(log),
+      //dataValues(runtimeData, 'quicksortInsertion2').map(log),
       dataValues(runtimeData, 'mergeSort').map(log),
     ],
   },
