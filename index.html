@@ -43,12 +43,14 @@
         primitive operations or steps executed. An algorithm's running time
         depends on the input size that is given. The running time for the
         examined algorithms are expressed as the asymptotic time complexity, or
-        big-O. The runtime of the algorithm is the actual measurement of the
-        time the code takes to execute. The measurement of the runtimes of each
-        algorithm for variable n as the array size can be quite representative
-        of the running time of the algorithm. Proper measurement of the runtimes
-        should show O(n<sup>2</sup>) for insertion sort, O(n log n) for
-        quicksort, and O(n log n) for merge sort.
+        big-O.
+        <a id="scroll" onclick="scrollToDiv('ref-cormen01introduction')">[2]</a>
+        The runtime of the algorithm is the actual measurement of the time the
+        code takes to execute. The measurement of the runtimes of each algorithm
+        for variable n as the array size can be quite representative of the
+        running time of the algorithm. Proper measurement of the runtimes should
+        show O(n<sup>2</sup>) for insertion sort, O(n log n) for quicksort, and
+        O(n log n) for merge sort.
       </p>
     </div>
     <div id="section-hypothesis">
@@ -311,7 +313,9 @@
         an<sup>2</sup> + bn + c, for constants a, b, c, or O(n<sup>2</sup>). A
         quadratic running time will take exponentially more time to execute as n
         increases and is not a recommended algorithm to use to sort large array
-        sizes.
+        sizes.<a id="scroll" onclick="scrollToDiv('ref-cormen01introduction')"
+          >[2]</a
+        >
       </p>
 
       <p>
@@ -326,7 +330,10 @@
         The recursion tree has depth of Ө(log n) and O(n) work is performed at
         each level (placing the pivot element in the correct index). This is
         still true with a 9-to-1 proportional split. Therefore, the average
-        running time of quicksort is much closer to the best case of O(n log n).
+        running time of quicksort is much closer to the best case of O(n log
+        n).<a id="scroll" onclick="scrollToDiv('ref-cormen01introduction')"
+          >[2]</a
+        >
         To ensure that all permutations of the input numbers are equally likely,
         we can randomize the partition by implementing random sampling. For
         randomized partitioning, an element is chosen at random from the
@@ -392,6 +399,7 @@
         However, insertion sort and quicksort intersect at approximately 103 and
         the runtimes of the hybrid algorithm at the varying k values do not show
         significant difference in performance for the given range of k values.
+        <a id="scroll" onclick="scrollToDiv('ref-37971')">[3]</a>
       </p>
 
       <p>
@@ -402,9 +410,13 @@
         the hybrid algorithm where k = 8. This discrepancy can be further
         examined by conducting this experiment on different computers. Actual
         runtime is dependent on how fast the computer executes the code, how
-        fast it caches data, and how fast it retrieves data from memory. The
-        latter is critical for n log (n) algorithms as that set of actions is
-        needed for the stack in recursion.
+        fast it caches data, and how fast it retrieves data from memory.<a
+          id="scroll"
+          onclick="scrollToDiv('ref-37962')"
+          >[4]</a
+        >
+        The latter is critical for n log (n) algorithms as that set of actions
+        is needed for the stack in recursion.
       </p>
 
       <p>
@@ -418,6 +430,58 @@
         the rest of the array is sorted by insertion sort was determined to be
         approximately k = 103 on the computer that conducted the experiment.
       </p>
+    </div>
+    <div class="section-references">
+      <h3>References:</h3>
+      <div id="refs" class="references hanging-indent" role="doc-bibliography">
+        <ol id="references">
+          <li>
+            <div class="refs" id="ref-10.5555/318199">
+              <p class="refs">
+                Bentley, Jon. 1999. <em>Programming Pearls (2nd Ed.)</em>. USA:
+                ACM Press/Addison-Wesley Publishing Co.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <div class="refs" id="ref-cormen01introduction">
+              <p class="refs">
+                Cormen, Thomas H., Charles E. Leiserson, Ronald L. Rivest, and
+                Clifford Stein. 2001. <em>Introduction to Algorithms</em>. 2nd
+                ed. The MIT Press.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <div class="refs" id="ref-37971">
+              <p class="refs">
+                (https://cs.stackexchange.com/users/12003/supercat). n.d. “Why
+                Is the Optimal Cut-Off for Switching from Quicksort to Insertion
+                Sort Machine Dependent?” Computer Science Stack Exchange.
+                <a href="https://cs.stackexchange.com/q/37971"
+                  >https://cs.stackexchange.com/q/37971</a
+                >.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <div class="refs" id="ref-37962">
+              <p class="refs">
+                (https://cs.stackexchange.com/users/9550/david-richerby), David
+                Richerby. n.d. “Why Is the Optimal Cut-Off for Switching from
+                Quicksort to Insertion Sort Machine Dependent?” Computer Science
+                Stack Exchange.
+                <a href="https://cs.stackexchange.com/q/37962"
+                  >https://cs.stackexchange.com/q/37962</a
+                >.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
     </div>
     <script src="./index.js"></script>
   </body>
