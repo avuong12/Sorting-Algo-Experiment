@@ -1,3 +1,8 @@
+body {
+  display: block;
+  padding: 20px;
+  margin: 20px;
+}
 div#chart text.c3-axis-x-label {
   font-size: 14px;
   font-family: sans-serif;
