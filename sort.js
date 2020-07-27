@@ -65,9 +65,9 @@ function mergeSort(nums) {
     return nums;
   }
   // Split all the way
-  let splitArrays = split(nums);
-  let sortedA = mergeSort(splitArrays[0]);
-  let sortedB = mergeSort(splitArrays[1]);
+  const splitArrays = split(nums);
+  const sortedA = mergeSort(splitArrays[0]);
+  const sortedB = mergeSort(splitArrays[1]);
 
   // merge sorted (nums.length 0 and 1 are sorted)
   return merge(sortedA, sortedB);

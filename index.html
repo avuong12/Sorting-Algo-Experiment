@@ -21,47 +21,59 @@
     <div id="section-purpose">
       <h3>Purpose:</h3>
       <p>
-        The goal of this experiment is to measure and compare the efficiency of
-        sorting algorithms for sorting n elements. The algorithms that are
-        examined are
+        The goal of this experiment is to measure the runtime of sorting
+        algorithms. The experiment examined
         <a href="https://en.wikipedia.org/wiki/Insertion_sort">Insertion Sort</a
         >,
         <a href="https://en.wikipedia.org/wiki/Quicksort"
           >Randomized Quicksort</a
         >, Quicksort with Insertion Sort Hybrid, and
         <a href="https://en.wikipedia.org/wiki/Merge_sort">Merge Sort</a>. This
-        experiment will also determine which k value, the subarray length in
-        which the base case condition is met for quicksort so that insertion
-        sort will sort the rest of the array, will provide the most efficient
-        hybrid sorting algorithm when combining quicksort with insertion sort.
+        experiment will also determine when Insertion Sort is more efficient
+        than Quicksort; this threshold will be used in the Quicksort with
+        Insertion Sort hybrid algorithm.
       </p>
     </div>
     <div id="section-introduction">
       <h3>Introduction:</h3>
       <p>
         The running time of an algorithm on a particular input is the number of
-        primitive operations or steps executed. An algorithm's running time
-        depends on the input size that is given. The running time for the
-        examined algorithms are expressed as the asymptotic time complexity, or
-        big-O.
+        primitive operations or steps executed when the algorithm is run on that
+        input. An algorithm's running time typically depends the size of its
+        input in bits. The asymptotic running time (asymptotic time complexity)
+        of an algorithm allows us to reason about its running time as a function
+        of its input size; however, this analysis hides constant factors.
         <a id="scroll" onclick="scrollToDiv('ref-cormen01introduction')">[2]</a>
-        The runtime of the algorithm is the actual measurement of the time the
-        code takes to execute. The measurement of the runtimes of each algorithm
-        for variable n as the array size can be quite representative of the
-        running time of the algorithm. Proper measurement of the runtimes should
-        show O(n<sup>2</sup>) for insertion sort, O(n log n) for quicksort, and
-        O(n log n) for merge sort.
+        This experiment will examine a few sorting algorithms:
+      </p>
+      <ul>
+        <li>Insertion Sort : O(n<sup>2</sup>)</li>
+        <li>
+          Randomized-Quicksort : O(n<sup>2</sup>), O(n log n) in expectation
+        </li>
+        <li>Merge Sort : O(n logn)</li>
+      </ul>
+
+      <p>
+        Based on the asymptotic running time, merge sort would guarantee a
+        faster runtime to sort any size input. In this experiment we will
+        measure the actual time it takes to excute these algorithms for
+        different input sizes and to determine if the constants hidden by the
+        asymptotic time are relevant in determining the most efficient
+        algorithm. Base on this empirical analysis, we will create a hybrid of
+        quicksort and insertion sort to try to acheive superior performance for
+        all input sizes.
       </p>
     </div>
     <div id="section-hypothesis">
       <h3>Hypothesis:</h3>
       <p>
-        Quicksort is more efficient than insertion sort for sorting large arrays
-        given O(n<sup>2</sup>) for insertion sort and O(n log n) for quicksort.
-        However, when implementing each sorting algorithm, quicksort has greater
-        overhead than insertion sort and is less efficient than insertion sort
-        for sorting smaller arrays. Quicksort combine with insertion sort would
-        be the most efficient algorithm to sort larger size arrays.
+        Quicksort is more efficient than insertion sort for sorting large
+        arrays. However, when implementing each sorting algorithm, quicksort has
+        greater overhead than insertion sort and is less efficient than
+        insertion sort for sorting smaller arrays. Quicksort combined with
+        insertion sort would be the most efficient algorithm to sort larger size
+        arrays.
       </p>
     </div>
 
@@ -69,118 +81,23 @@
       <h3>Experimental Procedure:</h3>
       <p><b>Part I. Measure Runtime for All 4 Sorting Algothrims.</b></p>
       <p>
-        The runtime of Merge Sort, Insertion Sort, Quicksort, and Quicksort with
-        Insertion Sort Hybrid algorithms where measured for sorting n elements,
-        where 2<sup>1</sup> ≤ n ≤ 2<sup>20</sup>. There were 20 runtime
-        measurements of each array size. Precision analysis was done for each
-        array size by calculating the average and standard deviation of the
-        runtimes in milliseconds.
+        The runtime of Merge Sort, Insertion Sort, Randomized-Quicksort, and
+        Quicksort with Insertion Sort Hybrid algorithms where measured for
+        sorting n elements, where 2<sup>1</sup> ≤ n ≤ 2<sup>20</sup>. There were
+        20 runtime measurements of each array size. Precision analysis was done
+        for each array size by calculating the average and standard deviation of
+        the runtimes in milliseconds.
       </p>
       <div class="batchCode">
-        <pre class="singleCode">
-          <code>
-            /* INSERTION SORT **/
-
-            function insertionSort(nums, lower = 0, upper = nums.length - 1) {
-              for (let i = lower + 1; i <= upper; i++) {
-                for (let j = i; j > lower && nums[j - 1] > nums[j]; j--) {
-                  swap(nums, j, j - 1);
-                }
-              }
-              return nums;
-            }
-          </code>
-        </pre>
-        <pre class="singleCode">
-          <code>
-            /* MERGE SORT **/
-
-            function mergeSort(nums) {
-              if (nums.length <= 1) {
-                return nums;
-              }
-              // Split all the way
-              let splitArrays = split(nums);
-              let sortedA = mergeSort(splitArrays[0]);
-              let sortedB = mergeSort(splitArrays[1]);
-            
-              // merge sorted (nums.length 0 and 1 are sorted)
-              return merge(sortedA, sortedB);
-            }
-          </code>
-        </pre>
+        <script src="https://gist.github.com/avuong12/c382f83eed817bf57411a7e7cea768c2.js"></script>
+        <script src="https://gist.github.com/avuong12/9aa04bf752c17d59b98aa7387d57650a.js"></script>
       </div>
       <div class="batchCode">
-        <pre class="singleCode">
-          <code>
-            /* QUICKSORT **/
-
-            function quicksort(nums, lower, upper) {
-              if (lower === undefined) {
-                lower = 0;
-              }
-              if (upper === undefined) {
-                upper = nums.length - 1;
-              }
-          
-              if (lower >= upper) {
-                return;
-              }
-            
-              let p = randomizedPartition(nums, lower, upper);
-            
-              quicksort(nums, lower, p - 1);
-              quicksort(nums, p + 1, upper);
-            }
-          </code>
-        </pre>
-        <pre class="singleCode">
-          <code>
-            /* QUICKSORT with INSERTION SORT HYBRID **/
-
-            function quicksortInsertion(nums, k = 8, lower, upper) {
-              if (lower === undefined) {
-                lower = 0;
-              }
-              if (upper === undefined) {
-                upper = nums.length - 1;
-              }
-
-              if (upper - lower <= k) {
-                return insertionSort(nums, (lower = lower), (upper = upper));
-              }
-              let p = randomizedPartition(nums, lower, upper);
-            
-              quicksortInsertion(nums, k, lower, p - 1);
-              quicksortInsertion(nums, k, p + 1, upper);
-            }
-          </code>
-        </pre>
+        <script src="https://gist.github.com/avuong12/ceb7630c5039b3bd9d2a2458d1d7b7e7.js"></script>
+        <script src="https://gist.github.com/avuong12/82b9d043c6f1291d7240848f78fccebb.js"></script>
       </div>
       <div id="section-partitionCode">
-        <pre class="singleBlockCode">
-          <code>
-            /* PARTITION AND RANDOMIZED PARTITION FOR QUICKSORT. **/
-
-            function partition(nums, lower, upper) {
-              let pivot = nums[upper];
-              let i = lower - 1;
-              for (let j = lower; j < upper; j++) {
-                if (nums[j] <= pivot) {
-                  swap(nums, ++i, j);
-                }
-              }
-              swap(nums, ++i, upper);
-              return i;
-            }
-        
-            function randomizedPartition(nums, lower, upper) {
-              let i = Math.floor(Math.random() * (upper - lower + 1)) + lower;
-              swap(nums, i, upper);
-              return partition(nums, (lower = lower), (upper = upper));
-            }
-          </code>
-        </pre>
+        <script src="https://gist.github.com/avuong12/ea0a913af1003f83ba5e322072348ab9.js"></script>
       </div>
 
       <p><b>Part II. Determining k for Quicksort with Insertion Sort.</b></p>
@@ -193,29 +110,11 @@
         2<sup>3</sup> ≤ k ≤ 2<sup>8</sup> and 2<sup>2</sup> ≤ n ≤
         2<sup>22</sup>. Precision analysis was done for each array size and k by
         calculating the average and standard deviation of the runtimes in
-        milliseconds. All the codes were executed on a Mac laptop using OS X El
-        Capitan, version 10.11.6 with a 2.7 GHz Intel Core i5 processor.
+        milliseconds. All the experiments were executed on a Mac laptop using OS
+        X El Capitan, version 10.11.6 with a 2.7 GHz Intel Core i5 processor.
       </p>
-      <pre class="singleBlockCode">
-        <code>
-          /* MEASURE RUNTIME for INPUT ARRAY SIZE, SORTING FUNCTION, and NUMBER of TRIALS. **/
 
-          function getRunTime(arrSize, func, trials) {
-            let times = [];
-            let count = 0;
-            while (count < trials) {
-              const t0 = performance.now();
-              func(shuffleArray(arrSize));
-              const t1 = performance.now();
-              times.push(t1 - t0);
-              count++;
-            }
-            const average = Number(mean(times).toFixed(5));
-            const stdev = Number(std(times, 'uncorrected').toFixed(3));
-            return [average, stdev];
-          }
-        </code>
-      </pre>
+      <script src="https://gist.github.com/avuong12/395140039292ce470fad6f4f49650255.js"></script>
     </div>
     <div id="section-results">
       <h3>Results:</h3>
@@ -248,7 +147,7 @@
         <b>Table 1.</b> The Average Runtimes and Standard Deviation of 4 Sorting
         Algothrims in Sorting Array Size (n).
       </p>
-      <table id="allAlgoTable"></table>
+      <table id="allAlgoTable" class="result_table"></table>
 
       <p>
         The average runtimes of insertion sort and quicksort was measured to
@@ -267,7 +166,7 @@
         <b>Table 2:</b> The Average Runtimes and Standard Deviation of Quicksort
         and Insertion Sort in Sorting Small Array Sizes.
       </p>
-      <table id="insertionVquicksortTable"></table>
+      <table id="insertionVquicksortTable" class="result_table"></table>
 
       <h4>k value Comparison for Quicksort with Insertion Sort Hybrid.</h4>
       <div id="quicksortInsertion"></div>
@@ -381,7 +280,7 @@
         <b>Table 3:</b> Simple Computation of the Cost of Insertion Sort and
         Quicksort at Different Constants.
       </p>
-      <table id="kTable"></table>
+      <table id="kTable" class="result_table"></table>
 
       <p>
         The behavior of both algorithms is seen in Table 3. for 2 sets of

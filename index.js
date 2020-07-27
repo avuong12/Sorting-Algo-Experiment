@@ -107,7 +107,7 @@ const chart3 = c3.generate({
   data: {
     x: 'x',
     columns: [
-      xValues(quicksortInsertionData),
+      xValues(quicksortInsertionData).map(log),
       dataValues(quicksortInsertionData, '8'),
       dataValues(quicksortInsertionData, '16'),
       dataValues(quicksortInsertionData, '32'),
@@ -122,7 +122,7 @@ const chart3 = c3.generate({
   axis: {
     x: {
       label: {
-        text: 'array size',
+        text: 'log2(array size)',
         position: 'outer-center',
       },
       tick: {
