@@ -83,10 +83,11 @@
       <p>
         The runtime of Merge Sort, Insertion Sort, Randomized-Quicksort, and
         Quicksort with Insertion Sort Hybrid algorithms where measured for
-        sorting n elements, where 2<sup>1</sup> ≤ n ≤ 2<sup>20</sup>. There were
-        20 runtime measurements of each array size. Precision analysis was done
-        for each array size by calculating the average and standard deviation of
-        the runtimes in milliseconds.
+        sorting n elements, where 2<sup>1</sup> ≤ n ≤ 2<sup>20</sup> and was
+        incremented by a factor 2. The runtime of each algorithm sorting each
+        array size input were measured 20 times. Precision analysis was done for
+        each array size by calculating the average and standard deviation of the
+        runtimes in milliseconds.
       </p>
       <div class="batchCode">
         <script src="https://gist.github.com/avuong12/c382f83eed817bf57411a7e7cea768c2.js"></script>
@@ -105,9 +106,9 @@
         To determine the size of the array (k) in which quicksort is faster than
         insertion sort. The runtime of insertion sort and quicksort algorithms
         where measured for sorting n elements, where 2<sup>2</sup> ≤ n ≤
-        2<sup>10</sup>. There were 100,000 runtime measurements of each array
-        size. The runtime for Quicksort with Insertion sort was measured, where
-        2<sup>3</sup> ≤ k ≤ 2<sup>8</sup> and 2<sup>2</sup> ≤ n ≤
+        2<sup>10</sup>. There were 100,000 runtime measurements for each array
+        size. The runtime for Quicksort with Insertion Sort Hybrid was measured,
+        where 2<sup>3</sup> ≤ k ≤ 2<sup>8</sup> and 2<sup>2</sup> ≤ n ≤
         2<sup>22</sup>. Precision analysis was done for each array size and k by
         calculating the average and standard deviation of the runtimes in
         milliseconds. All the experiments were executed on a Mac laptop using OS
@@ -124,9 +125,8 @@
         slope for insertion sort is 2, which is consistant with O(nk). The slope
         for merge sort is 1, which is consistant with O(n log n). The slope for
         quicksort is also 1 with the constant less than the constant for merge
-        sort. Quicksort and both variations of quicksort with insertion sort
-        where k = 8 had the almost overlaying trend for increasing array size up
-        to n = 2<sup>20</sup>. In
+        sort. Quicksort and quicksort with insertion sort where k = 8 had almost
+        overlaying trend for increasing array size up to n = 2<sup>20</sup>. In
         <a id="scroll" onclick="scrollToDiv('insertionVsQuicksort')">Graph 2</a
         >, the runtimes of insertion sort and quicksort shows that insertion
         sort is more efficient than quicksort at sorting arrays that are smaller
@@ -135,7 +135,7 @@
         103 elements.
       </p>
 
-      <h4>Runtimes of Different Algothrims Sorting n Elements</h4>
+      <h4>Runtimes of Sorting Algorithms</h4>
 
       <div id="allAlgo"></div>
       <p class="caption">
