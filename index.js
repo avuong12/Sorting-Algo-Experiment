@@ -35,12 +35,13 @@ const chart1 = c3.generate({
         position: 'outer-middle',
       },
     },
-    tooltip: {
-      format: {
-        name: function (d, index) {
-          return 'test' + index;
-        },
+  },
+  tooltip: {
+    format: {
+      title: function (index) {
+        return `n = ${2 ** index}`;
       },
+      value: (value, ratio, id) => `${(2 ** value).toFixed(4)} ms`,
     },
   },
 });
@@ -82,12 +83,13 @@ const chart2 = c3.generate({
         position: 'outer-middle',
       },
     },
-    tooltip: {
-      format: {
-        name: function (d, index) {
-          return 'test' + index;
-        },
+  },
+  tooltip: {
+    format: {
+      title: function (index) {
+        return `n = ${2 ** index}`;
       },
+      value: (value, ratio, id) => `${(2 ** value).toFixed(4)} ms`,
     },
   },
 });
@@ -136,12 +138,13 @@ const chart3 = c3.generate({
         position: 'outer-middle',
       },
     },
-    tooltip: {
-      format: {
-        name: function (d, index) {
-          return 'test' + index;
-        },
+  },
+  tooltip: {
+    format: {
+      title: function (index) {
+        return `n = ${2 ** index}`;
       },
+      value: (value, ratio, id) => `${value.toFixed(4)} ms`,
     },
   },
 });
@@ -175,12 +178,13 @@ const chart4 = c3.generate({
         position: 'outer-middle',
       },
     },
-    tooltip: {
-      format: {
-        name: function (d, index) {
-          return 'test' + index;
-        },
+  },
+  tooltip: {
+    format: {
+      title: function (index) {
+        return `n = ${2 ** index}`;
       },
+      value: (value, ratio, id) => `${(2 ** value).toFixed(4)} ms`,
     },
   },
 });
@@ -214,12 +218,13 @@ const chart5 = c3.generate({
         position: 'outer-middle',
       },
     },
-    tooltip: {
-      format: {
-        name: function (d, index) {
-          return 'test' + index;
-        },
+  },
+  tooltip: {
+    format: {
+      title: function (index) {
+        return `n = ${2 ** index}`;
       },
+      value: (value, ratio, id) => `${(2 ** value).toFixed(4)} ms`,
     },
   },
 });
